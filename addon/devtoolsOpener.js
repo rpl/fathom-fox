@@ -1,12 +1,10 @@
 let backgroundPort = browser.runtime.connect();
 
 async function createPanel() {
-    const extensionPanel = await browser.devtools.panels.create(
-        'Fathom',
-        '/icons/icon.svg',
-        '/pages/devtoolsPanel.html');
-    extensionPanel.onShown.addListener(panelShowed);
-    extensionPanel.onHidden.addListener(panelHid);
+  const sidebar = await browser.devtools.panels.elements.createSidebarPane("Fathom");
+  sidebar.setPage('/pages/devtoolsPanel.html');
+  sidebar.onShown.addListener(panelShowed);
+  sidebar.onHidden.addListener(panelHid);
 }
 
 async function panelShowed(extensionPanel) {
